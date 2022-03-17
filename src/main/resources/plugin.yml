@@ -1,0 +1,9 @@
+name: CaffeinClan
+version: '${project.version}'
+main: tokyo.ramune.caffeinclan.CaffeinClan
+api-version: 1.17
+authors: [ Ramune ]
+commands:
+  clan:
+    description: "caffein鯖クランを管理するコマンドです"
+    aliases: [ cl ]

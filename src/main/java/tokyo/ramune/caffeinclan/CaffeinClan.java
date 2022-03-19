@@ -1,5 +1,6 @@
 package tokyo.ramune.caffeinclan;
 
+import it.sauronsoftware.cron4j.Scheduler;
 import org.bukkit.plugin.java.JavaPlugin;
 import tokyo.ramune.caffeinclan.command.CommandManager;
 import tokyo.ramune.caffeinclan.command.TabComleterManager;
@@ -13,6 +14,7 @@ import tokyo.ramune.caffeinclan.listener.PlayerQuitListener;
 public final class CaffeinClan extends JavaPlugin {
 
     private static JavaPlugin plugin;
+    private static Scheduler scheduler;
     public static Config config;
 
     @Override
@@ -24,6 +26,9 @@ public final class CaffeinClan extends JavaPlugin {
 
         MySQL.connect(true);
         DataBaseManager.createTable();
+
+        scheduler = new Scheduler();
+        addSchedule();
 
         this.getServer().getPluginManager().registerEvents(new MenuListener(), this);
         this.getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
@@ -42,5 +47,11 @@ public final class CaffeinClan extends JavaPlugin {
 
     public static JavaPlugin getInstance() {
         return plugin;
+    }
+
+    private void addSchedule() {
+        scheduler.schedule("0 0 1 * *", () -> {
+
+        });
     }
 }

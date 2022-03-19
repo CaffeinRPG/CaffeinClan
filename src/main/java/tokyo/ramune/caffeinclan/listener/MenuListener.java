@@ -22,6 +22,5 @@ public class MenuListener implements Listener {
             }
             player.playSound(player.getLocation(), Sound.BLOCK_STONE_BUTTON_CLICK_ON, 1, Float.valueOf(2));
         }
-
     }
 }

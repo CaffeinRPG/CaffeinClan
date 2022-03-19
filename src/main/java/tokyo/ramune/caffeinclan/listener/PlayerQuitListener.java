@@ -3,7 +3,7 @@ package tokyo.ramune.caffeinclan.listener;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
-import tokyo.ramune.caffeinclan.database.player.PlayerManager;
+import tokyo.ramune.caffeinclan.player.PlayerManager;
 
 public class PlayerQuitListener implements Listener {
 

@@ -5,5 +5,19 @@ public enum ClanRole {
     MEMBER,
     SUB_LEADER,
     ELDER,
-    MASTER
+    MASTER;
+
+    public static String getName(ClanRole role) {
+        switch (role) {
+            case MEMBER:
+                return "メンバー";
+            case MASTER:
+                return "マスター";
+            case SUB_LEADER:
+                return "サブリーダー";
+            case ELDER:
+                return "長老";
+        }
+        return null;
+    }
 }

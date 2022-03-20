@@ -13,7 +13,7 @@ public class CommandManager implements CommandExecutor {
         if (!(sender instanceof Player)) {
             return true;
         }
-        ((Player) sender).openInventory(GUIManager.getClanMenu());
+        ((Player) sender).openInventory(GUIManager.getClanMenu((Player) sender));
         return true;
     }
 }

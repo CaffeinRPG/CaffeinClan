@@ -26,7 +26,6 @@ public class SQL {
             }
         } catch (Exception var4) {
         }
-
         return false;
     }
 

@@ -23,20 +23,32 @@ public class SQLDate {
 
     public SQLDate() {
         year = cal.get(Calendar.YEAR);
-        month = cal.get(Calendar.MONTH);
+        month = cal.get(Calendar.MONTH) + 1;
         dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);
     }
 
     public String getDateNow() {
-        return cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH) + 1) + "-" + cal.get(Calendar.DAY_OF_MONTH);
+        if (String.valueOf(cal.get(Calendar.MONTH)).length() == 1) {
+            return cal.get(Calendar.YEAR) + "-0" + cal.get(Calendar.MONTH) + "-" + cal.get(Calendar.DAY_OF_MONTH);
+        } else {
+            return cal.get(Calendar.YEAR) + "-" + cal.get(Calendar.MONTH) + "-" + cal.get(Calendar.DAY_OF_MONTH);
+        }
     }
 
     public String getDate() {
-        return year + "-" + month + "-" + dayOfMonth;
+        if (String.valueOf(month).length() == 1) {
+            return year + "-0" + month + "-" + dayOfMonth;
+        } else {
+            return year + "-" + month + "-" + dayOfMonth;
+        }
     }
 
     public String toString() {
-        return year + "-" + month + "-" + dayOfMonth;
+        if (String.valueOf(month).length() == 1) {
+            return year + "-0" + month + "-" + dayOfMonth;
+        } else {
+            return year + "-" + month + "-" + dayOfMonth;
+        }
     }
 
     public int getYear() {

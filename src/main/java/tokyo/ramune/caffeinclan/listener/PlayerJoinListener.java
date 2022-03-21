@@ -20,7 +20,7 @@ public class PlayerJoinListener implements Listener {
         } catch (Exception ignored) {
         }
         Bukkit.getScheduler().runTaskLater(CaffeinClan.getInstance(), () -> {
-            if (!PlayerManager.getPlayerStatus(e.getPlayer()).getLatestJoinDate().equals(new SQLDate().getDateNow())) {
+            if (PlayerManager.getPlayerStatus(e.getPlayer()).getLatestJoinDate() != new SQLDate()) {
                 PlayerManager.getPlayerStatus(e.getPlayer()).setLatestJoinDate(new SQLDate());
             }
         }, 10);

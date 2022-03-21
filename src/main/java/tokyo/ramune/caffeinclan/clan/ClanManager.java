@@ -25,19 +25,19 @@ public class ClanManager {
             master.sendMessage(ChatColor.RED + "クランの作成ができませんでした。 原因: そのクラン名はすでに使われています");
             return;
         }
-        SQL.insertData("name, master_uuid, forgot_pay_count", "'" + name + "', '" + master.getUniqueId().toString() + "', 0", "clans");
+        SQL.insertData("name, master_uuid, bank, forgot_pay_count", "'" + name + "', '" + master.getUniqueId().toString() + "', 0, 0", "clans");
         master.sendMessage(ChatColor.GREEN + "クランを作成しました");
         });
     }
 
-    public static void deleteClan(Player player, Clan clan) {
+    public static void deleteClan(Player master, Clan clan) {
         Bukkit.getScheduler().runTaskAsynchronously(CaffeinClan.getInstance(), () -> {
-            if (SQL.get("clan", "uuid", "=", player.getUniqueId().toString(), "players") != clan.getName()) {
-                player.sendMessage(ChatColor.RED + "クランを削除できませんでした 原因: あなたはそのクランのメンバーではありません");
+            if (SQL.get("clan", "uuid", "=", master.getUniqueId().toString(), "players") != clan.getName()) {
+                master.sendMessage(ChatColor.RED + "クランを削除できませんでした 原因: あなたはそのクランのメンバーではありません");
                 return;
             }
-            if (SQL.get("clan_role", "uuid", "=", player.getUniqueId().toString(), "players") != ClanRole.MASTER) {
-                player.sendMessage(ChatColor.RED + "クランを削除できませんでした 原因: あなたはそのクランのマスターではありません");
+            if (SQL.get("clan_role", "uuid", "=", master.getUniqueId().toString(), "players") != ClanRole.MASTER) {
+                master.sendMessage(ChatColor.RED + "クランを削除できませんでした 原因: あなたはそのクランのマスターではありません");
                 return;
             }
             SQL.deleteData("name", "=", clan.getName(), "clans");
@@ -45,22 +45,22 @@ public class ClanManager {
                 SQL.upsert("clan", "", "uuid", uuid, "players");
                 SQL.upsert("clan_role", "MEMBER", "uuid", uuid, "players");
             }
-            player.sendMessage(ChatColor.GREEN + "あなたのクランは削除されました");
+            master.sendMessage(ChatColor.GREEN + "あなたのクランは削除されました");
         });
     }
 
-    public static void setName(Player player,Clan clan, String name) {
+    public static void setName(Player master,Clan clan, String name) {
         Bukkit.getScheduler().runTaskAsynchronously(CaffeinClan.getInstance(), () -> {
-            if (SQL.get("clan", "uuid", "=", player.getUniqueId().toString(), "players") != name) {
-                player.sendMessage(ChatColor.RED + "名前を変更できませんでした 原因: あなたはそのクランのメンバーではありません");
+            if (SQL.get("clan", "uuid", "=", master.getUniqueId().toString(), "players") != name) {
+                master.sendMessage(ChatColor.RED + "名前を変更できませんでした 原因: あなたはそのクランのメンバーではありません");
                 return;
             }
-            if (SQL.get("clan_role", "uuid", "=", player.getUniqueId().toString(), "players") != ClanRole.MASTER) {
-                player.sendMessage(ChatColor.RED + "名前を変更できませんでした 原因: あなたはクランのマスターではありません");
+            if (SQL.get("clan_role", "uuid", "=", master.getUniqueId().toString(), "players") != ClanRole.MASTER) {
+                master.sendMessage(ChatColor.RED + "名前を変更できませんでした 原因: あなたはクランのマスターではありません");
                 return;
             }
             SQL.upsert("name", name, "name", clan.getName(), "clans");
-            player.sendMessage(ChatColor.GREEN + "クラン名を変更しました");
+            master.sendMessage(ChatColor.GREEN + "クラン名を変更しました");
         });
     }
 

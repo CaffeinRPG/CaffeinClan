@@ -23,9 +23,9 @@ public class MySQL {
             disconnect(false);
 
             try {
-                String driver = "mysql";
+                String driver = "sqlite";
                 String tlsVersion = "";
-                con = DriverManager.getConnection("jdbc:" + driver + "://" + host + ":" + port + "/" + database + "?autoReconnect=true&maxReconnects=10" + (tlsVersion != null && tlsVersion.length() > 0 ? "&enabledTLSProtocols=TLSv" + tlsVersion : "") + "&useSSL=" + false, user, password);
+                con = DriverManager.getConnection("jdbc:" + driver + ":" + database);
                 if (message) {
                     Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "SQL connected.");
                 }

@@ -4,12 +4,6 @@ config:
 
 
   # データベースとの連携について
-  # --注意--
-  # データベースは手動で作成をしてから起動してください
   database:
-    host: 127.0.0.1
-    port: 3306
     database: database
-    username: user
-    password: password
 

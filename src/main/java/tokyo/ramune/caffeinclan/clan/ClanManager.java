@@ -66,14 +66,7 @@ public class ClanManager {
 
     public static Clan getClan(String name) {
         if (SQL.exists("name", name, "clans")) {
-            int i = 0;
-            ArrayList<Member> members = new ArrayList<>();
-            for (String uuid : (String[]) SQL.listGet("clan", "uuid", "=", "", "").toArray()) {
-                members.add(new Member(Bukkit.getPlayer(UUID.fromString(uuid)), ClanRole.valueOf(String.valueOf(SQL.get("clan_role", "uuid", "=", Bukkit.getPlayer(UUID.fromString(uuid)).getUniqueId().toString(), "players")))));
-                i++;
-            }
-            int bank = Integer.valueOf(String.valueOf(SQL.get("bank", "name", "=", name, "clans")));
-            return new Clan(name, members, bank);
+            return new Clan(name);
         } else {
             return null;
         }

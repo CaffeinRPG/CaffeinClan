@@ -6,17 +6,14 @@ import tokyo.ramune.caffeinclan.CaffeinClan;
 import tokyo.ramune.caffeinclan.database.SQL;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class Clan {
 
     private String name;
-    private ArrayList<Member> members;
-    private int bank;
 
-    public Clan(String name, ArrayList<Member> members, int bank) {
+    public Clan(String name) {
         this.name = name;
-        this.members = members;
-        this.bank = bank;
     }
 
     public String getName() {
@@ -24,11 +21,11 @@ public class Clan {
     }
 
     public ArrayList<Member> getMembers() {
+        ArrayList<Member> members = new ArrayList<>();
+        for (String uuid : (String[]) SQL.listGet("clan", "uuid", "=", "", "").toArray()) {
+            members.add(new Member(Bukkit.getPlayer(UUID.fromString(uuid)), ClanRole.valueOf(String.valueOf(SQL.get("clan_role", "uuid", "=", Bukkit.getPlayer(UUID.fromString(uuid)).getUniqueId().toString(), "players")))));
+        }
         return members;
-    }
-
-    public int getBank() {
-        return bank;
     }
 
     public void setName(String name) {
@@ -40,7 +37,6 @@ public class Clan {
     public void addMember(Player player) {
         Bukkit.getScheduler().runTaskAsynchronously(CaffeinClan.getInstance(), () -> {
             SQL.upsert("clan", name, "uuid", player.getUniqueId().toString(), "players");
-            members.add(new Member(player, ClanRole.MEMBER));
         });
     }
 
@@ -49,32 +45,17 @@ public class Clan {
             if (SQL.get("clan", "uuid", "=", player.getUniqueId().toString(), "players") == name) {
                 SQL.upsert("clan", "", "uuid", player.getUniqueId().toString(), "players");
                 SQL.upsert("clan_role", "MEMBER", "uuid", player.getUniqueId().toString(), "players");
-                members.remove(new Member(player, ClanRole.valueOf(String.valueOf(SQL.get("clan_role", "uuid", "=", player.getUniqueId().toString(), "players")))));
             }
         });
+    }
+
+    public int getBank() {
+        return Integer.valueOf(String.valueOf(SQL.get("bank", "name", "=", name, "clans")));
     }
 
     public void setBank(int bank) {
         Bukkit.getScheduler().runTaskAsynchronously(CaffeinClan.getInstance(), () -> {
             SQL.upsert("bank", String.valueOf(bank), "clan", name, "clans");
-            this.bank = bank;
         });
-    }
-
-    public void depositBank(int bank) {
-        Bukkit.getScheduler().runTaskAsynchronously(CaffeinClan.getInstance(), () -> {
-            SQL.upsert("bank", String.valueOf(bank + this.bank), "clan", name, "clans");
-            this.bank = this.bank + bank;
-        });
-    }
-
-    public void paymentBank(int bank) {
-        Bukkit.getScheduler().runTaskAsynchronously(CaffeinClan.getInstance(), () -> {
-            SQL.upsert("bank", String.valueOf(this.bank - bank), "clan", name, "clans");
-            this.bank = bank - this.bank;
-        });
-    }
-
-    public void paymentMaintenanceCosts() {
     }
 }

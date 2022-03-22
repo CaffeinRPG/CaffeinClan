@@ -7,7 +7,7 @@ Caffein鯖のクランを管理をするプラグイン
 ## Plugin Info
 - サーバーAPI: spigotMC
 - APIバージョン: 1.17.1
-- データベース　
+- データベース SQLite
 
 
 ## 機能

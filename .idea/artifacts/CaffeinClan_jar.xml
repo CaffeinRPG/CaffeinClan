@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="CaffeinClan:jar">
+    <output-path>$USER_HOME$/Desktop/pluginDev/paper 1.17.1/plugins</output-path>
+    <root id="archive" name="CaffeinClan.jar">
+      <element id="module-output" name="CaffeinClan" />
+    </root>
+  </artifact>
+</component>

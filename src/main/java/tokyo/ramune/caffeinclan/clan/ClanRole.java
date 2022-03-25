@@ -9,14 +9,14 @@ public enum ClanRole {
 
     public static String getName(ClanRole role) {
         switch (role) {
-            case MEMBER:
-                return "メンバー";
             case MASTER:
                 return "マスター";
             case SUB_LEADER:
                 return "サブリーダー";
             case ELDER:
                 return "長老";
+            case MEMBER:
+                return "メンバー";
         }
         return null;
     }

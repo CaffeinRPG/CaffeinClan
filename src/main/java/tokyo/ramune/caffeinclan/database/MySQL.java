@@ -18,13 +18,12 @@ public class MySQL {
         return con;
     }
 
-    public static void setConnection(String host, String user, String password, String database, String port, boolean message) {
-        if (host != null && user != null && password != null && database != null) {
+    public static void setConnection(String database, boolean message) {
+        if (database != null) {
             disconnect(false);
 
             try {
                 String driver = "sqlite";
-                String tlsVersion = "";
                 con = DriverManager.getConnection("jdbc:" + driver + ":" + database);
                 if (message) {
                     Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "SQL connected.");
@@ -38,27 +37,15 @@ public class MySQL {
     }
 
     public static void connect(boolean message) {
-        String host = CaffeinClan.config.MYSQL_HOST;
-        String user = CaffeinClan.config.MYSQL_USERNAME;
-        String password = CaffeinClan.config.MYSQL_PASSWORD;
         String database = CaffeinClan.config.MYSQL_DATABASE;
-        String port = String.valueOf(CaffeinClan.config.MYSQL_PORT);
         if (isConnected()) {
             if (message) {
                 Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "SQL Connect Error: Already connected");
             }
-        } else if (host.length() == 0) {
-            Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Config Error: Host is blank");
-        } else if (user.length() == 0) {
-            Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Config Error: User is blank");
-        } else if (password.length() == 0) {
-            Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Config Error: Password is blank");
         } else if (database.length() == 0) {
-            Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Config Error: Database is blank");
-        } else if (port.length() == 0) {
-            Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Config Error: Port is blank");
+            Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Config Error: Host is blank");
         } else {
-            setConnection(host, user, password, database, port, message);
+            setConnection(database, message);
         }
 
     }

@@ -1,12 +1,10 @@
 package tokyo.ramune.caffeinclan.gui;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import tokyo.ramune.caffeinclan.CaffeinClan;
 import tokyo.ramune.caffeinclan.clan.Member;
 import tokyo.ramune.caffeinclan.player.PlayerManager;
 
@@ -48,7 +46,7 @@ public class MenuItems {
     }
 
     public static ItemStack getCreateClan() {
-        ItemStack item = new ItemStack(Material.JUNGLE_SIGN);
+        ItemStack item = new ItemStack(Material.ACACIA_SIGN);
         ItemMeta itemMeta = item.getItemMeta();
         List<String> lore = new ArrayList<>();
 
@@ -62,6 +60,55 @@ public class MenuItems {
         lore.add(ChatColor.GREEN + "が可能となります");
         lore.add(" ");
         lore.add(ChatColor.YELLOW + "右クリックで作成");
+        itemMeta.setLore(lore);
+        item.setItemMeta(itemMeta);
+        return item;
+    }
+
+    public static ItemStack getDeleteClan() {
+        ItemStack item = new ItemStack(Material.FIRE);
+        ItemMeta itemMeta = item.getItemMeta();
+        List<String> lore = new ArrayList<>();
+
+        itemMeta.setDisplayName(ChatColor.RED + "クランを削除");
+        lore.add(ChatColor.BOLD + "クランを削除します");
+        lore.add(ChatColor.BOLD + "クランを削除すると");
+        lore.add(ChatColor.BOLD + "・" + ChatColor.GOLD + "クランクエスト");
+        lore.add(ChatColor.BOLD + "・" + ChatColor.GOLD + "クランダンジョン");
+        lore.add(ChatColor.BOLD + "・" + ChatColor.GOLD + "レイド戦");
+        lore.add(ChatColor.BOLD + "・" + ChatColor.GOLD + "クランメンバーとの交流");
+        lore.add(" ");
+        lore.add(ChatColor.RED + "が不可能となります");
+        lore.add(" ");
+        lore.add(ChatColor.YELLOW + "右クリックで作成");
+        itemMeta.setLore(lore);
+        item.setItemMeta(itemMeta);
+        return item;
+    }
+
+    public static ItemStack getInvitePlayerClan() {
+        ItemStack item = new ItemStack(Material.WRITABLE_BOOK);
+        ItemMeta itemMeta = item.getItemMeta();
+        List<String> lore = new ArrayList<>();
+
+        itemMeta.setDisplayName(ChatColor.RED + "プレイヤーを招待");
+        lore.add(ChatColor.BOLD + "プレイヤーをクランに招待します");
+        lore.add(" ");
+        lore.add(ChatColor.YELLOW + "右クリックで招待");
+        itemMeta.setLore(lore);
+        item.setItemMeta(itemMeta);
+        return item;
+    }
+
+    public static ItemStack getKickPlayerClan() {
+        ItemStack item = new ItemStack(Material.BARRIER);
+        ItemMeta itemMeta = item.getItemMeta();
+        List<String> lore = new ArrayList<>();
+
+        itemMeta.setDisplayName(ChatColor.RED + "プレイヤーをキック");
+        lore.add(ChatColor.BOLD + "プレイヤーをクランからキックします");
+        lore.add(" ");
+        lore.add(ChatColor.YELLOW + "右クリックでキック");
         itemMeta.setLore(lore);
         item.setItemMeta(itemMeta);
         return item;
